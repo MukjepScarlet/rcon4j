@@ -16,8 +16,26 @@ suspend fun ARconClient(
     charset: Charset = Charsets.UTF_8,
     requestId: Int = Random.nextInt(0, Int.MAX_VALUE) + 1,
     dispatcher: CoroutineDispatcher = Dispatchers.IO,
+): ARconClient = ARconClient(host, port, password, charset, requestId, ActorSelectorManager(dispatcher))
+
+suspend fun ARconClient(
+    host: String,
+    port: Int,
+    password: String,
+    charset: Charset = Charsets.UTF_8,
+    requestId: Int = Random.nextInt(0, Int.MAX_VALUE) + 1,
+    actorSelectorManager: ActorSelectorManager,
+): ARconClient = ARconClient(host, port, password, charset, requestId, aSocket(actorSelectorManager))
+
+suspend fun ARconClient(
+    host: String,
+    port: Int,
+    password: String,
+    charset: Charset = Charsets.UTF_8,
+    requestId: Int = Random.nextInt(0, Int.MAX_VALUE) + 1,
+    socketBuilder: SocketBuilder,
 ): ARconClient = ARconClient(
-    aSocket(ActorSelectorManager(dispatcher)).tcp().connect(host, port),
+    socketBuilder.tcp().connect(host, port),
     charset,
     requestId
 ).apply {
