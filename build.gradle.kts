@@ -10,7 +10,3 @@ allprojects {
         maven("https://jitpack.io")
     }
 }
-
-subprojects {
-    apply(plugin = "maven-publish")
-}

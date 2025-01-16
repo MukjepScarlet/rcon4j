@@ -1,10 +1,6 @@
 plugins {
     id("java")
-    `maven-publish`
 }
-
-group = "moe.mukjep.rcon"
-version = "0.1.0"
 
 dependencies {
     compileOnly("org.jetbrains:annotations:25.0.0")
@@ -22,15 +18,4 @@ tasks.jar {
 
 tasks.test {
     useJUnitPlatform()
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
 }
