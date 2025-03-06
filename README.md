@@ -1,11 +1,13 @@
 # rcon4j [![](https://jitpack.io/v/MukjepScarlet/rcon4j.svg)](https://jitpack.io/#MukjepScarlet/rcon4j)
 
-An RCON client library for Java and Kotlin.
+An RCON client library for Java and Kotlin (JVM/Android).
+
+Depends on: [kotlin-stdlib](https://kotlinlang.org/)
 
 ## Modules
 
-- `rcon4j-core`: in pure Java 8. Connect with Socket.
-- `rcon4j-kotlin`: in Kotlin. Connect with [ktor-network-jvm](https://github.com/ktorio/ktor/tree/main/ktor-network/jvm) library and Kotlin coroutines.
+- `rcon4j-core`: Based on Java Socket API.
+- `rcon4j-kotlin`: Based on [ktor-network](https://github.com/ktorio/ktor/tree/main/ktor-network/) (CIO) library and Kotlin coroutines.
 
 ## Usage
 
@@ -19,48 +21,48 @@ An RCON client library for Java and Kotlin.
 2. Import the library with a proper version:
     ```kotlin
     dependencies {
-        implementation("com.github.MukjepScarlet.rcon4j:rcon4j-kotlin:$version")
         implementation("com.github.MukjepScarlet.rcon4j:rcon4j-core:$version")
+        implementation("com.github.MukjepScarlet.rcon4j:rcon4j-kotlin:$version")
     }
     ```
 
 ## Overview
 
-### Java module
+Default Charset: `StandardCharsets.UTF_8`
+
+Default request ID: `Random.nextInt(1, Int.MAX_VALUE)` (Kotlin thread-safe Random)
+
+### Socket
+
 ```java
-public RconClient(
-    String host,
-    int port,
-    String password,
-    Charset charset, // default=StandardCharsets.UTF_8
-    int requestId // default=(new Random()).nextInt(Integer.MAX_VALUE) + 1
-) throws IOException, AuthenticationException
+// Packet
+class RconPacket(int id, int type, byte[] payload) { /*...*/ }
 
-// RconClient implements AutoCloseable
+class RconClient implements AutoCloseable {
+   public RconClient(
+           String host,
+           int port,
+           String password,
+           Charset charset, // default
+           int requestId // default
+   ) throws IOException, AuthenticationException { /*...*/ }
 
-// Member
-@NotNull   
-public String command(
-    String payload
-)
-throws IOException
+   @NotNull
+   public String command(@NotNull String payload) throws IOException { /*...*/ }
+}
 ```
 
-### Kotlin module
+### CIO
+
 ```kotlin
 suspend fun ARconClient(
-    host: String,
-    port: Int,
-    password: String,
-    charset: Charset = Charsets.UTF_8,
-    requestId: Int = Random.nextInt(0, Int.MAX_VALUE) + 1,
-    dispatcher: CoroutineDispatcher = Dispatchers.IO,
-): ARconClient
+   host: String,
+   port: Int,
+   password: String,
+   charset: Charset, // default
+   requestId: Int, // default
+   socketBuilder: SocketBuilder,
+): ARconClient { /*...*/ }
 
-// ARconClient implements AutoCloseable
-
-// Member
-public final suspend fun command(
-    payload: String
-): String
+suspend fun ARconClient.command(payload: String): String { /*...*/ }
 ```
