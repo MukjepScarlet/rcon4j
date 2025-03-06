@@ -1,11 +1,9 @@
 plugins {
-    id("java")
+    kotlin("jvm")
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:25.0.0")
-    testImplementation(platform("org.junit:junit-bom:5.10.0"))
-    testImplementation("org.junit.jupiter:junit-jupiter")
+    testImplementation(kotlin("test"))
 }
 
 group = rootProject.group
@@ -19,9 +17,8 @@ tasks.jar {
     }
 }
 
-java {
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+kotlin {
+    jvmToolchain(8)
 }
 
 publishing {

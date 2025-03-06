@@ -7,6 +7,7 @@ import java.nio.ByteOrder
 suspend fun ByteReadChannel.readRconPacket(): RconPacket {
     val header = ByteArray(4 * 3)
     readFully(header)
+    readInt()
     val buffer = ByteBuffer.wrap(header).order(ByteOrder.LITTLE_ENDIAN)
 
     val length = buffer.getInt()

@@ -1,10 +1,10 @@
 plugins {
-    kotlin("jvm") version "2.0.21"
+    kotlin("jvm")
 }
 
 dependencies {
     implementation(project(":rcon4j-core"))
-    implementation("io.ktor:ktor-network-jvm:3.0.3")
+    implementation("io.ktor:ktor-network:3.1.1")
     testImplementation(kotlin("test"))
 }
 
