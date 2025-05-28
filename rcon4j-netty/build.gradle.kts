@@ -9,11 +9,7 @@ repositories {
 
 dependencies {
     api(project(":rcon4j-core"))
-    api(libs.netty.transport)
-    api(libs.netty.buffer)
-    api(libs.netty.common)
-    api(libs.netty.resolver)
-    api(libs.netty.handler)
+    api(libs.bundles.netty)
     compileOnly(libs.jetbrains.annotations)
 }
 
