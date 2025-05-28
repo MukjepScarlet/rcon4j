@@ -8,3 +8,4 @@ An RCON client library for Java (8+) and Kotlin (2.0+).
 2. Testing, client + server
 3. Documentation
 4. README files
+5. GitHub workflow (auto build + test)
