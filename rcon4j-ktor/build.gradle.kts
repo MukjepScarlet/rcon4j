@@ -1,18 +1,23 @@
 plugins {
-    kotlin("jvm")
+    kotlin("jvm") version "2.1.10"
+    `java-library`
+    `maven-publish`
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    implementation(project(":rcon4j-core"))
-    implementation("io.ktor:ktor-network:3.1.1")
-    testImplementation(kotlin("test"))
+    api(project(":rcon4j-core"))
+    api("io.ktor:ktor-network:3.0.0")
 }
 
 group = rootProject.group
 version = rootProject.version
 
 tasks.jar {
-    archiveBaseName = "rcon4j-kotlin"
+    archiveBaseName = project.name
     manifest {
         attributes["Implementation-Title"] = project.name
         attributes["Implementation-Version"] = version
