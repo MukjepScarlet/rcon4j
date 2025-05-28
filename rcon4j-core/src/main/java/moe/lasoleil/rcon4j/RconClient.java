@@ -4,16 +4,19 @@ import org.jetbrains.annotations.NotNull;
 
 import java.io.Closeable;
 import java.io.IOException;
+import java.net.InetAddress;
 import java.nio.charset.StandardCharsets;
 
 public interface RconClient extends Closeable {
 
-    String host();
-
-    int port();
+    void connect(@NotNull InetAddress address, int port) throws IOException;
 
     @NotNull
     RconPacket send(RconPacket packet) throws IOException;
+
+    default void connect(@NotNull String host, int port) throws IOException {
+        connect(InetAddress.getByName(host), port);
+    }
 
     default boolean authenticate(@NotNull String password) throws IOException {
         return authenticate(password, Util.randomPacketId());
@@ -54,6 +57,11 @@ public interface RconClient extends Closeable {
         }
 
         return new String(result.payload(), StandardCharsets.UTF_8);
+    }
+
+    @NotNull
+    static RconClient createDefault() {
+        return new DefaultRconClient();
     }
 
 }
