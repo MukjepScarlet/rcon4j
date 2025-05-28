@@ -1,4 +1,5 @@
 plugins {
+    kotlin("jvm") version "2.1.10"
     `java-library`
 }
 
@@ -7,7 +8,9 @@ repositories {
 }
 
 dependencies {
-    compileOnly("org.jetbrains:annotations:24.0.0")
+    api(project(":rcon4j-core"))
+    compileOnly(kotlin("stdlib"))
+    implementation("com.squareup.okio:okio:3.10.2")
 }
 
 group = rootProject.group
@@ -21,11 +24,8 @@ tasks.jar {
     }
 }
 
-java {
-    withSourcesJar()
-    withJavadocJar()
-    sourceCompatibility = JavaVersion.VERSION_1_8
-    targetCompatibility = JavaVersion.VERSION_1_8
+kotlin {
+    jvmToolchain(8)
 }
 
 publishing {

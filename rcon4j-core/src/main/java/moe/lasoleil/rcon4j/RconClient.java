@@ -12,7 +12,7 @@ public interface RconClient extends Closeable {
     void connect(@NotNull InetAddress address, int port) throws IOException;
 
     @NotNull
-    RconPacket send(RconPacket packet) throws IOException;
+    RconPacket send(@NotNull RconPacket packet) throws IOException;
 
     default void connect(@NotNull String host, int port) throws IOException {
         connect(InetAddress.getByName(host), port);
