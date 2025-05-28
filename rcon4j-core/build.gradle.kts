@@ -1,6 +1,7 @@
 plugins {
     `java-library`
     `maven-publish`
+    alias(libs.plugins.kotlin)
 }
 
 repositories {
@@ -9,6 +10,7 @@ repositories {
 
 dependencies {
     compileOnly(libs.jetbrains.annotations)
+    testImplementation(kotlin("test"))
 }
 
 group = rootProject.group
@@ -27,6 +29,10 @@ java {
     withJavadocJar()
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
+}
+
+kotlin {
+    jvmToolchain(8)
 }
 
 publishing {

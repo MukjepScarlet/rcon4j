@@ -49,7 +49,7 @@ public final class RconPacketAdapters {
             Util.writeInt32Le(out, packet.id(), 4);
             Util.writeInt32Le(out, packet.type(), 8);
             System.arraycopy(packet.payload(), 0, out, 12, packet.payload().length);
-            out[packet.length() - 2] = out[packet.length() - 1] = 0;
+            out[packet.length() + 4 - 2] = out[packet.length() + 4 - 1] = 0;
         }
     }
 
