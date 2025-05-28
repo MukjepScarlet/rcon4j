@@ -1,9 +1,13 @@
 plugins {
-    kotlin("jvm")
+    `java-library`
+}
+
+repositories {
+    mavenCentral()
 }
 
 dependencies {
-    testImplementation(kotlin("test"))
+    compileOnly("org.jetbrains:annotations:24.0.0")
 }
 
 group = rootProject.group
@@ -17,8 +21,11 @@ tasks.jar {
     }
 }
 
-kotlin {
-    jvmToolchain(8)
+java {
+    withSourcesJar()
+    withJavadocJar()
+    sourceCompatibility = JavaVersion.VERSION_1_8
+    targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 publishing {

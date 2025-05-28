@@ -4,5 +4,4 @@ plugins {
 
 rootProject.name = "rcon4j"
 
-include("rcon4j-kotlin")
 include("rcon4j-core")
