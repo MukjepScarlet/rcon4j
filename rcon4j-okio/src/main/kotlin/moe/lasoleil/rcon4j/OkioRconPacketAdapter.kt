@@ -28,7 +28,7 @@ object OkioRconPacketAdapter : RconPacket.Writer<BufferedSink>, RconPacket.Reade
             throw MalformedPacketException("Excepted payload length=" + payload.size + ", real length=" + realLength)
         }
         if (source.readByte() != 0.toByte() || source.readByte() != 0.toByte()) {
-            throw MalformedPacketException("Should be packet end")
+            throw MalformedPacketException("Invalid packet terminators")
         }
         return Util.createS2CPacket(id, type, payload)
     }

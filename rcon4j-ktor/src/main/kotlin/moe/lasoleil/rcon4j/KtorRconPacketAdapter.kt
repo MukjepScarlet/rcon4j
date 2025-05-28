@@ -30,7 +30,7 @@ suspend fun ByteReadChannel.readRconPacket(): RconPacket {
     val type = readIntLe()
     val payload = readByteArray(length - 4 - 4 - 2)
     if (readByte() != 0.toByte() || readByte() != 0.toByte()) {
-        throw MalformedPacketException("Should be packet end")
+        throw MalformedPacketException("Invalid packet terminators")
     }
     return Util.createS2CPacket(id, type, payload)
 }

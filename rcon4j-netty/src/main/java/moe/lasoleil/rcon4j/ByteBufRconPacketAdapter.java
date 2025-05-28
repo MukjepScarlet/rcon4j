@@ -24,7 +24,7 @@ public final class ByteBufRconPacketAdapter implements RconPacket.Writer<ByteBuf
         }
         in.readBytes(payload);
         if (in.readByte() != 0 || in.readByte() != 0) {
-            throw new MalformedPacketException("Should be packet end");
+            throw new MalformedPacketException("Invalid packet terminators");
         }
         return Util.createS2CPacket(id, type, payload);
     }
