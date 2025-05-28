@@ -30,7 +30,7 @@ public final class ByteBufRconPacketAdapter implements RconPacket.Writer<ByteBuf
     }
 
     @Override
-    public void write(@NotNull ByteBuf out, @NotNull RconPacket packet) throws IOException {
+    public void write(@NotNull ByteBuf out, @NotNull RconPacket packet) {
         out.writeIntLE(packet.length())
                 .writeIntLE(packet.id())
                 .writeIntLE(packet.type())
