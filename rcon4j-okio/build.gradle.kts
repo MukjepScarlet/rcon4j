@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.1.10"
+    alias(libs.plugins.kotlin)
     `java-library`
     `maven-publish`
 }
@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     api(project(":rcon4j-core"))
-    api("com.squareup.okio:okio:3.10.2")
+    api(libs.squareup.okio)
 }
 
 group = rootProject.group

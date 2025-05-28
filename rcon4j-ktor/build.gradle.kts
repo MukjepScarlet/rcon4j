@@ -1,5 +1,5 @@
 plugins {
-    kotlin("jvm") version "2.1.10"
+    alias(libs.plugins.kotlin)
     `java-library`
     `maven-publish`
 }
@@ -10,7 +10,7 @@ repositories {
 
 dependencies {
     api(project(":rcon4j-core"))
-    api("io.ktor:ktor-network:3.0.0")
+    api(libs.ktor.network)
 }
 
 group = rootProject.group
