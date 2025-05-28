@@ -6,7 +6,6 @@ import java.io.*;
 import java.net.InetAddress;
 import java.net.InetSocketAddress;
 import java.net.Socket;
-import java.util.Objects;
 
 final class DefaultRconClient implements RconClient {
 
@@ -29,8 +28,8 @@ final class DefaultRconClient implements RconClient {
             throw new IllegalStateException("Socket not connected");
         }
 
-        RconPacket.Writer.OutputStream.write(outputStream, packet);
-        return RconPacket.Reader.InputStream.read(inputStream);
+        RconPacketAdapters.toOutPutStream().write(outputStream, packet);
+        return RconPacketAdapters.fromInputStream().read(inputStream);
     }
 
     @Override
