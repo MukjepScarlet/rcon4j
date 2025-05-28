@@ -43,6 +43,23 @@ public interface RconPacket {
             this.id = id;
             this.payload = payload;
         }
+
+        @Override
+        public int hashCode() {
+            return Util.packetHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof Auth)) return false;
+            return Util.packetEquals(this, (Auth) obj);
+        }
+
+        @Override
+        public String toString() {
+            return Util.packetToString("RconPacket.Auth", this);
+        }
     }
 
     final class AuthResponse implements RconPacket {
@@ -58,6 +75,23 @@ public interface RconPacket {
 
         public AuthResponse(int id) {
             this.id = id;
+        }
+
+        @Override
+        public int hashCode() {
+            return Util.packetHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof AuthResponse)) return false;
+            return Util.packetEquals(this, (AuthResponse) obj);
+        }
+
+        @Override
+        public String toString() {
+            return Util.packetToString("RconPacket.AuthResponse", this);
         }
     }
 
@@ -85,6 +119,23 @@ public interface RconPacket {
             this.id = id;
             this.payload = payload;
         }
+
+        @Override
+        public int hashCode() {
+            return Util.packetHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof ExecCommand)) return false;
+            return Util.packetEquals(this, (ExecCommand) obj);
+        }
+
+        @Override
+        public String toString() {
+            return Util.packetToString("RconPacket.ExecCommand", this);
+        }
     }
 
     final class ResponseValue implements RconPacket {
@@ -110,6 +161,23 @@ public interface RconPacket {
         public ResponseValue(int id, byte @NotNull [] payload) {
             this.id = id;
             this.payload = payload;
+        }
+
+        @Override
+        public int hashCode() {
+            return Util.packetHashCode(this);
+        }
+
+        @Override
+        public boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof ResponseValue)) return false;
+            return Util.packetEquals(this, (ResponseValue) obj);
+        }
+
+        @Override
+        public String toString() {
+            return Util.packetToString("RconPacket.ResponseValue", this);
         }
     }
 
