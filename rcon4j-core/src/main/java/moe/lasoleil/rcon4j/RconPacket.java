@@ -19,6 +19,14 @@ public interface RconPacket {
         return Util.EMPTY_BYTE_ARRAY;
     }
 
+    static byte @NotNull [] toByteArray(RconPacket packet) {
+        byte[] result = new byte[packet.length() + 4];
+        try {
+            RconPacketAdapters.toByteArray().write(result, packet);
+        } catch (IOException ignored) {} // never
+        return result;
+    }
+
     final class Auth implements RconPacket {
         private final int id;
         private final byte[] payload;
