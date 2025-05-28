@@ -9,11 +9,11 @@ repositories {
 
 dependencies {
     api(project(":rcon4j-core"))
-    api("io.netty:netty-transport:4.1.197.Final")
-    api("io.netty:netty-buffer:4.1.197.Final")
-    api("io.netty:netty-common:4.1.197.Final")
-    api("io.netty:netty-resolver:4.1.197.Final")
-    api("io.netty:netty-handler:4.1.197.Final")
+    api("io.netty:netty-transport:4.1.115.Final")
+    api("io.netty:netty-buffer:4.1.115.Final")
+    api("io.netty:netty-common:4.1.115.Final")
+    api("io.netty:netty-resolver:4.1.115.Final")
+    api("io.netty:netty-handler:4.1.115.Final")
     compileOnly("org.jetbrains:annotations:24.0.0")
 }
 
