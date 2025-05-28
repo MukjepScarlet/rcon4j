@@ -9,8 +9,7 @@ repositories {
 
 dependencies {
     api(project(":rcon4j-core"))
-    compileOnly(kotlin("stdlib"))
-    implementation("com.squareup.okio:okio:3.10.2")
+    api("com.squareup.okio:okio:3.10.2")
 }
 
 group = rootProject.group

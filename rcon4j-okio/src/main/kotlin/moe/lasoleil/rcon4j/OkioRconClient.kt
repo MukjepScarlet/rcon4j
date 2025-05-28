@@ -1,7 +1,7 @@
 package moe.lasoleil.rcon4j
 
-import moe.lasoleil.rcon4j.SinkRconPacketWriter.writeRconPacket
-import moe.lasoleil.rcon4j.SourceRconPacketReader.readRconPacket
+import moe.lasoleil.rcon4j.OkioRconPacketAdapter.readRconPacket
+import moe.lasoleil.rcon4j.OkioRconPacketAdapter.writeRconPacket
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.buffer
