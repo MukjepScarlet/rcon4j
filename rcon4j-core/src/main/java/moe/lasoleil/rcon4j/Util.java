@@ -48,6 +48,13 @@ final class Util {
         out[startIndex] = (byte) ((value >> 24) & 0xFF);    // byte 4 - highest
     }
 
+    static int swapEndian(int value) {
+        return ((value >>> 24)) |
+                ((value >> 8) & 0x0000FF00) |
+                ((value << 8) & 0x00FF0000) |
+                ((value << 24));
+    }
+
     static RconPacket createS2CPacket(int id, int type, byte[] payload) {
         switch (type) {
             case RconPacket.SERVERDATA_AUTH_RESPONSE:

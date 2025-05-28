@@ -14,6 +14,7 @@ object OkioRconPacketAdapter : RconPacket.Writer<BufferedSink>, RconPacket.Reade
             .write(packet.payload())
             .writeByte(0)
             .writeByte(0)
+        out.flush()
     }
 
     @Throws(IOException::class)

@@ -57,6 +57,7 @@ public final class RconPacketAdapters {
         out.write(packet.payload());
         out.write(0);
         out.write(0);
+        out.flush();
     };
 
     public static RconPacket.Writer<OutputStream> toOutPutStream() {
