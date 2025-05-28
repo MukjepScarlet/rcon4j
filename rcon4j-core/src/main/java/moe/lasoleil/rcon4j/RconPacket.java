@@ -21,9 +21,7 @@ public interface RconPacket {
 
     static byte @NotNull [] toByteArray(RconPacket packet) {
         byte[] result = new byte[packet.length() + 4];
-        try {
-            RconPacketAdapters.toByteArray().write(result, packet);
-        } catch (IOException ignored) {} // never
+        RconPacketAdapters.forByteArray().write(result, packet);
         return result;
     }
 

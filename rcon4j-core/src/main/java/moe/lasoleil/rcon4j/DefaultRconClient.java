@@ -28,8 +28,8 @@ final class DefaultRconClient implements RconClient {
             throw new IllegalStateException("Socket not connected");
         }
 
-        RconPacketAdapters.toOutPutStream().write(outputStream, packet);
-        return RconPacketAdapters.fromInputStream().read(inputStream);
+        RconPacketAdapters.forOutPutStream().write(outputStream, packet);
+        return RconPacketAdapters.forInputStream().read(inputStream);
     }
 
     @Override
