@@ -122,6 +122,9 @@ public interface RconPacket {
         }
 
         public ExecCommand(int id, byte @NotNull [] payload) {
+            if (payload.length == 0) {
+                throw new IllegalArgumentException("payload cannot be empty");
+            }
             this.id = id;
             this.payload = payload;
         }
