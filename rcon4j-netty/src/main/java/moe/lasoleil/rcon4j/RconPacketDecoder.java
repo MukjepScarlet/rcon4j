@@ -9,10 +9,6 @@ import java.util.List;
 
 public final class RconPacketDecoder extends ByteToMessageDecoder {
 
-    public static final RconPacketDecoder INSTANCE = new RconPacketDecoder();
-
-    private RconPacketDecoder() {}
-
     @Override
     protected void decode(ChannelHandlerContext channelHandlerContext, ByteBuf byteBuf, List<Object> list) throws IOException {
         RconPacket packet = ByteBufRconPacketAdapter.INSTANCE.read(byteBuf);

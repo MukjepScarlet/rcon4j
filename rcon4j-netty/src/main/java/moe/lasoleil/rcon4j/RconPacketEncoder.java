@@ -8,10 +8,6 @@ import java.io.IOException;
 
 public final class RconPacketEncoder extends MessageToByteEncoder<RconPacket> {
 
-    public static final RconPacketEncoder INSTANCE = new RconPacketEncoder();
-
-    private RconPacketEncoder() {}
-
     @Override
     protected void encode(ChannelHandlerContext channelHandlerContext, RconPacket packet, ByteBuf byteBuf) throws IOException {
         ByteBufRconPacketAdapter.INSTANCE.write(byteBuf, packet);
