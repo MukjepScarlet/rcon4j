@@ -10,14 +10,17 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.SupervisorJob
 import kotlinx.coroutines.isActive
 import kotlinx.coroutines.launch
+import org.jetbrains.annotations.ApiStatus
 
 typealias OnRconConnect = suspend (client: Socket) -> Unit
 typealias OnRconPacket = suspend (client: Socket, packet: RconPacket) -> RconPacket
 typealias OnRconDisconnect = suspend (client: Socket) -> Unit
 typealias OnRconError = suspend (client: Socket, error: Throwable) -> Unit
 
+@ApiStatus.Experimental
 fun ServerSocket.rcon(): KtorRconServer.Builder = KtorRconServer.Builder(this)
 
+@ApiStatus.Experimental
 class KtorRconServer private constructor(
     serverSocket: ServerSocket,
     val onConnect: OnRconConnect,

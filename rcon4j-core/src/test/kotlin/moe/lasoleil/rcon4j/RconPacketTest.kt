@@ -53,7 +53,6 @@ class RconPacketTest {
 
         assertTrue(packetA == packetB)
         assertFalse(packetA == packetC)
-        assertFalse(packetA == null)
         assertFalse(packetA == Any())
     }
 

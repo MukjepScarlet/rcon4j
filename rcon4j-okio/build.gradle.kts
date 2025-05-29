@@ -1,11 +1,6 @@
 plugins {
     alias(libs.plugins.kotlin)
-    `java-library`
-    `maven-publish`
-}
-
-repositories {
-    mavenCentral()
+    `maven-local-publish`
 }
 
 dependencies {
@@ -15,30 +10,10 @@ dependencies {
     testImplementation(project(":rcon4j-testing"))
 }
 
-group = rootProject.group
-version = rootProject.version
-
-tasks.jar {
-    archiveBaseName = project.name
-    manifest {
-        attributes["Implementation-Title"] = project.name
-        attributes["Implementation-Version"] = version
-    }
-}
+description = "rcon4j(kt): Okio packet adapter and client implementation"
 
 kotlin {
     jvmToolchain(8)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
 }
 
 tasks.test {

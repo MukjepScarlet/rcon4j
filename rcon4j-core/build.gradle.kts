@@ -1,11 +1,6 @@
 plugins {
-    `java-library`
-    `maven-publish`
     alias(libs.plugins.kotlin)
-}
-
-repositories {
-    mavenCentral()
+    `maven-local-publish`
 }
 
 dependencies {
@@ -14,37 +9,15 @@ dependencies {
     testImplementation(project(":rcon4j-testing"))
 }
 
-group = rootProject.group
-version = rootProject.version
-
-tasks.jar {
-    archiveBaseName = project.name
-    manifest {
-        attributes["Implementation-Title"] = project.name
-        attributes["Implementation-Version"] = version
-    }
-}
+description = "rcon4j: RCON protocol implementation in Java 8, including packets and client API"
 
 java {
-    withSourcesJar()
-    withJavadocJar()
     sourceCompatibility = JavaVersion.VERSION_1_8
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
 kotlin {
     jvmToolchain(8)
-}
-
-publishing {
-    publications {
-        create<MavenPublication>("mavenJava") {
-            from(components["java"])
-        }
-    }
-    repositories {
-        mavenLocal()
-    }
 }
 
 tasks.test {
