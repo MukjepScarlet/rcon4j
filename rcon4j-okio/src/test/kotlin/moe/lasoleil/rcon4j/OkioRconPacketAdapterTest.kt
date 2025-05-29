@@ -110,7 +110,7 @@ class OkioRconPacketAdapterTest {
         OkioRconPacketAdapter.write(buffer, packet)
         val readPacket = OkioRconPacketAdapter.read(buffer)
 
-        assert(readPacket is RconPacket.AuthResponse)
+        assertIs<RconPacket.AuthResponse>(readPacket)
         assertEquals(packet.id(), readPacket.id())
         assertContentEquals(Util.EMPTY_BYTE_ARRAY, readPacket.payload())
     }
