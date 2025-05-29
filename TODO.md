@@ -1,7 +1,13 @@
 # TODO
 
 - [x] Gradle cleanup + Maven publishing
-- [x] Testing, client + server
+- [ ] Testing
+  - [x] (C) core
+  - [ ] (C) netty
+  - [ ] (C) okio
+  - [ ] (C) ktor
+  - [x] (S) netty
+  - [ ] (S) ktor
 - [ ] Documentation
-- [ ] README files
+- [x] README files
 - [ ] GitHub workflow (auto build + test)
