@@ -37,7 +37,7 @@ public final class RconPacketAdapters {
             if (in[length + 4 - 2] != 0 || in[length + 4 - 1] != 0) {
                 throw new MalformedPacketException("Invalid packet terminators");
             }
-            return Util.createS2CPacket(id, type, payload);
+            return Util.createPacket(id, type, payload);
         }
 
         @Override
@@ -70,7 +70,7 @@ public final class RconPacketAdapters {
             if (in.read() != 0 || in.read() != 0) {
                 throw new MalformedPacketException("Invalid packet terminators");
             }
-            return Util.createS2CPacket(id, type, payload);
+            return Util.createPacket(id, type, payload);
         };
     }
 
@@ -123,7 +123,7 @@ public final class RconPacketAdapters {
                     throw new MalformedPacketException("Invalid packet terminators");
                 }
 
-                return Util.createS2CPacket(id, type, payload);
+                return Util.createPacket(id, type, payload);
             } catch (BufferUnderflowException e) {
                 in.reset();
                 throw new MalformedPacketException("Buffer underflow: " + e.getMessage(), e);
@@ -205,7 +205,7 @@ public final class RconPacketAdapters {
                 throw new MalformedPacketException("Invalid packet terminators");
             }
 
-            return Util.createS2CPacket(id, type, payloadBuffer.array());
+            return Util.createPacket(id, type, payloadBuffer.array());
         };
     }
 

@@ -30,7 +30,7 @@ object OkioRconPacketAdapter : RconPacket.Writer<BufferedSink>, RconPacket.Reade
         if (source.readByte() != 0.toByte() || source.readByte() != 0.toByte()) {
             throw MalformedPacketException("Invalid packet terminators")
         }
-        return Util.createS2CPacket(id, type, payload)
+        return Util.createPacket(id, type, payload)
     }
 
     @Suppress("NOTHING_TO_INLINE")

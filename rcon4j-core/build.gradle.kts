@@ -11,6 +11,7 @@ repositories {
 dependencies {
     compileOnly(libs.jetbrains.annotations)
     testImplementation(kotlin("test"))
+    testImplementation(project(":rcon4j-testing"))
 }
 
 group = rootProject.group

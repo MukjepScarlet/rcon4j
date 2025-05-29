@@ -8,3 +8,5 @@ include("rcon4j-core")
 include("rcon4j-okio")
 include("rcon4j-netty")
 include("rcon4j-ktor")
+
+include("rcon4j-testing")

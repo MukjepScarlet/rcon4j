@@ -83,12 +83,14 @@ final class Util {
         return a.length() == b.length() && a.id() == b.id() && a.type() == b.type() && Arrays.equals(a.payload(), b.payload());
     }
 
-    static @NotNull RconPacket createS2CPacket(int id, int type, byte @NotNull [] payload) {
+    static @NotNull RconPacket createPacket(int id, int type, byte @NotNull [] payload) {
         switch (type) {
-            case RconPacket.SERVERDATA_AUTH_RESPONSE:
-                return new RconPacket.AuthResponse(id);
-            case RconPacket.SERVERDATA_RESPONSE_VALUE:
+            case 0: // SERVERDATA_RESPONSE_VALUE
                 return new RconPacket.ResponseValue(id, payload);
+            case 2: // SERVERDATA_EXECCOMMAND, SERVERDATA_AUTH_RESPONSE
+                return payload.length == 0 ? new RconPacket.AuthResponse(id) : new RconPacket.ExecCommand(id, payload);
+            case 3: // SERVERDATA_AUTH
+                return new RconPacket.Auth(id, payload);
             default:
                 throw new IllegalArgumentException("Unknown packet type: " + type);
         }

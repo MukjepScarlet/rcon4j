@@ -32,5 +32,5 @@ suspend fun ByteReadChannel.readRconPacket(): RconPacket {
     if (readByte() != 0.toByte() || readByte() != 0.toByte()) {
         throw MalformedPacketException("Invalid packet terminators")
     }
-    return Util.createS2CPacket(id, type, payload)
+    return Util.createPacket(id, type, payload)
 }

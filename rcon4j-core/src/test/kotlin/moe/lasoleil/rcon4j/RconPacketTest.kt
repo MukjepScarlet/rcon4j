@@ -102,17 +102,17 @@ class RconPacketTest {
 
     @Test
     fun testUtilCreateS2CPacket() {
-        val authResponse = Util.createS2CPacket(900, RconPacket.SERVERDATA_AUTH_RESPONSE, Util.EMPTY_BYTE_ARRAY)
+        val authResponse = Util.createPacket(900, RconPacket.SERVERDATA_AUTH_RESPONSE, Util.EMPTY_BYTE_ARRAY)
         assertTrue(authResponse is RconPacket.AuthResponse)
         assertEquals(900, authResponse.id())
 
-        val responseValue = Util.createS2CPacket(901, RconPacket.SERVERDATA_RESPONSE_VALUE, "result".toByteArray())
+        val responseValue = Util.createPacket(901, RconPacket.SERVERDATA_RESPONSE_VALUE, "result".toByteArray())
         assertTrue(responseValue is RconPacket.ResponseValue)
         assertEquals(901, responseValue.id())
         assertContentEquals("result".toByteArray(), responseValue.payload())
 
         assertFailsWith<IllegalArgumentException> {
-            Util.createS2CPacket(902, 999, Util.EMPTY_BYTE_ARRAY) // Invalid type
+            Util.createPacket(902, 999, Util.EMPTY_BYTE_ARRAY) // Invalid type
         }
     }
 }
