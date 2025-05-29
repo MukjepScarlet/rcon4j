@@ -22,11 +22,7 @@ object OkioRconPacketAdapter : RconPacket.Writer<BufferedSink>, RconPacket.Reade
         val length = source.readIntLe()
         val id = source.readIntLe()
         val type = source.readIntLe()
-        val payload = ByteArray(length - 4 - 4 - 2)
-        val realLength = source.read(payload)
-        if (realLength != payload.size) {
-            throw MalformedPacketException("Excepted payload length=" + payload.size + ", real length=" + realLength)
-        }
+        val payload = source.readByteArray((length - 4 - 4 - 2).toLong())
         if (source.readByte() != 0.toByte() || source.readByte() != 0.toByte()) {
             throw MalformedPacketException("Invalid packet terminators")
         }

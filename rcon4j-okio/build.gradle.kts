@@ -11,6 +11,8 @@ repositories {
 dependencies {
     api(project(":rcon4j-core"))
     api(libs.squareup.okio)
+    testImplementation(kotlin("test"))
+    testImplementation(project(":rcon4j-testing"))
 }
 
 group = rootProject.group
