@@ -38,7 +38,7 @@ class RconPacketAdaptersTest {
         val packet = RconPacket.Auth(456, "pass")
         val byteArray = ByteArray(4 + packet.length())
         RconPacketAdapters.forByteArray().write(byteArray, packet)
-        byteArray[byteArray.size - 1] = 1 // 破坏终止符
+        byteArray[byteArray.size - 1] = 1 // illegal packet tail
 
         assertFailsWith<MalformedPacketException> {
             RconPacketAdapters.forByteArray().read(byteArray)
@@ -48,7 +48,7 @@ class RconPacketAdaptersTest {
     @Test
     fun testForByteArray_Write_ArrayTooShort() {
         val packet = RconPacket.ExecCommand(789, "cmd")
-        val byteArray = ByteArray(10) // 故意创建过小的数组
+        val byteArray = ByteArray(10) // small array, length < minimum(14)
 
         assertFailsWith<IllegalArgumentException> {
             RconPacketAdapters.forByteArray().write(byteArray, packet)
