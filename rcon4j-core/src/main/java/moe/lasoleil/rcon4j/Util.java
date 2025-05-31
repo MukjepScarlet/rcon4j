@@ -1,6 +1,7 @@
 package moe.lasoleil.rcon4j;
 
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 
 import java.io.EOFException;
 import java.io.IOException;
@@ -17,6 +18,13 @@ final class Util {
 
     static int randomPacketId() {
         return ThreadLocalRandom.current().nextInt(1, Integer.MAX_VALUE);
+    }
+
+    static byte @NotNull [] requireNotNullOrEmpty(byte @Nullable [] value) {
+        if (value == null || value.length == 0) {
+            throw new IllegalArgumentException("value cannot be null or empty");
+        }
+        return value;
     }
 
     static int readInt32Le(@NotNull InputStream in) throws IOException {

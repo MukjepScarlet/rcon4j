@@ -15,9 +15,7 @@ public interface RconPacket {
 
     int type();
 
-    default byte @NotNull [] payload() {
-        return Util.EMPTY_BYTE_ARRAY;
-    }
+    byte @NotNull [] payload();
 
     static byte @NotNull [] toByteArray(RconPacket packet) {
         byte[] result = new byte[packet.length() + 4];
@@ -25,41 +23,57 @@ public interface RconPacket {
         return result;
     }
 
-    final class Auth implements RconPacket {
+    abstract class Base implements RconPacket {
         private final int id;
-        private final byte[] payload;
+        private final int type;
+        private final byte @NotNull [] payload;
 
-        public int type() {
-            return SERVERDATA_AUTH;
+        protected Base(int id, int type, byte @NotNull [] payload) {
+            this.id = id;
+            this.type = type;
+            this.payload = payload;
         }
 
+        @Override
         public int id() {
-            return id;
+            return this.id;
         }
 
+        @Override
+        public int type() {
+            return this.type;
+        }
+
+        @Override
         public byte @NotNull [] payload() {
-            return payload;
+            return this.payload;
         }
 
+        @Override
+        public final int hashCode() {
+            return Util.packetHashCode(this);
+        }
+
+        @Override
+        public final boolean equals(Object obj) {
+            if (this == obj) return true;
+            if (!(obj instanceof RconPacket)) return false;
+            return Util.packetEquals(this, (RconPacket) obj);
+        }
+
+        @Override
+        public String toString() {
+            return Util.packetToString("RconPacket.Base", this);
+        }
+    }
+
+    final class Auth extends Base {
         public Auth(int id, @NotNull String password) {
             this(id, password.getBytes(StandardCharsets.UTF_8));
         }
 
         public Auth(int id, byte @NotNull [] payload) {
-            this.id = id;
-            this.payload = payload;
-        }
-
-        @Override
-        public int hashCode() {
-            return Util.packetHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof Auth)) return false;
-            return Util.packetEquals(this, (Auth) obj);
+            super(id, SERVERDATA_AUTH, payload);
         }
 
         @Override
@@ -68,31 +82,9 @@ public interface RconPacket {
         }
     }
 
-    final class AuthResponse implements RconPacket {
-        private final int id;
-
-        public int type() {
-            return SERVERDATA_AUTH_RESPONSE;
-        }
-
-        public int id() {
-            return id;
-        }
-
+    final class AuthResponse extends Base {
         public AuthResponse(int id) {
-            this.id = id;
-        }
-
-        @Override
-        public int hashCode() {
-            return Util.packetHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof AuthResponse)) return false;
-            return Util.packetEquals(this, (AuthResponse) obj);
+            super(id, SERVERDATA_AUTH_RESPONSE, Util.EMPTY_BYTE_ARRAY);
         }
 
         @Override
@@ -101,44 +93,13 @@ public interface RconPacket {
         }
     }
 
-    final class ExecCommand implements RconPacket {
-        private final int id;
-        private final byte[] payload;
-
-        public int type() {
-            return SERVERDATA_EXECCOMMAND;
-        }
-
-        public int id() {
-            return id;
-        }
-
-        public byte @NotNull [] payload() {
-            return payload;
-        }
-
+    final class ExecCommand extends Base {
         public ExecCommand(int id, @NotNull String command) {
             this(id, command.getBytes(StandardCharsets.UTF_8));
         }
 
         public ExecCommand(int id, byte @NotNull [] payload) {
-            if (payload.length == 0) {
-                throw new IllegalArgumentException("payload cannot be empty");
-            }
-            this.id = id;
-            this.payload = payload;
-        }
-
-        @Override
-        public int hashCode() {
-            return Util.packetHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof ExecCommand)) return false;
-            return Util.packetEquals(this, (ExecCommand) obj);
+            super(id, SERVERDATA_EXECCOMMAND, Util.requireNotNullOrEmpty(payload));
         }
 
         @Override
@@ -147,41 +108,13 @@ public interface RconPacket {
         }
     }
 
-    final class ResponseValue implements RconPacket {
-        private final int id;
-        private final byte[] payload;
-
-        public int type() {
-            return SERVERDATA_RESPONSE_VALUE;
-        }
-
-        public int id() {
-            return id;
-        }
-
-        public byte @NotNull [] payload() {
-            return payload;
-        }
-
+    final class ResponseValue extends Base {
         public ResponseValue(int id, @NotNull String content) {
             this(id, content.getBytes(StandardCharsets.UTF_8));
         }
 
         public ResponseValue(int id, byte @NotNull [] payload) {
-            this.id = id;
-            this.payload = payload;
-        }
-
-        @Override
-        public int hashCode() {
-            return Util.packetHashCode(this);
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (this == obj) return true;
-            if (!(obj instanceof ResponseValue)) return false;
-            return Util.packetEquals(this, (ResponseValue) obj);
+            super(id, SERVERDATA_RESPONSE_VALUE, payload);
         }
 
         @Override
